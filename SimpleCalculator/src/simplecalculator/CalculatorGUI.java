@@ -18,22 +18,26 @@ public class CalculatorGUI extends JFrame{
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 2, 5, 5));
+        mainPanel.setLayout(new GridLayout(5, 2, 5, 5));
         
         
-        mainPanel.add(new JLabel("Число 1:"));
+        mainPanel.add(new JLabel("Г—ГЁГ±Г«Г® 1:"));
         JTextField atxt = new JTextField(4);
         mainPanel.add(atxt);
-        mainPanel.add(new JLabel("Число 2:"));
+        mainPanel.add(new JLabel("Г—ГЁГ±Г«Г® 2:"));
         JTextField btxt = new JTextField(4);
         mainPanel.add(btxt);
 
-        //сумма
-        JButton buttonSum = new JButton("Сумма");
+        //Г±ГіГ¬Г¬Г 
+        JButton buttonSum = new JButton("Г‘ГіГ¬Г¬Г ");
         mainPanel.add(buttonSum);
-        JButton buttonSub = new JButton("Разность");
+        JButton buttonSub = new JButton("ГђГ Г§Г­Г®Г±ГІГј");
         mainPanel.add(buttonSub);
-        mainPanel.add(new JLabel("Результат"));
+        JButton button1 = new JButton("Г“Г¬Г­Г®Г¦ГЁГІГј");
+        JButton button2 = new JButton("ГђГ Г§Г¤ГҐГ«ГЁГІГј");
+        mainPanel.add(button1);
+        mainPanel.add(button2);
+        mainPanel.add(new JLabel("ГђГҐГ§ГіГ«ГјГІГ ГІ"));
         JLabel res = new JLabel("");
         mainPanel.add(res);
         buttonSum.addActionListener(e -> {
@@ -48,12 +52,43 @@ public class CalculatorGUI extends JFrame{
             double c =  calc.subtract(a, b);
             res.setText(Double.toString(c));
         });
+              button1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String b = atxt.getText();
+                double realb = Double.parseDouble(b);
+                String a = btxt.getText();
+                double reala = Double.parseDouble(a);
+                Calculator calc = new Calculator();
+                double answer = calc.multiply(reala, realb);
+                String finalanswer = Double.toString(answer);
+                JOptionPane.showMessageDialog(CalculatorGUI.this, finalanswer, "",  JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+            
+        });
+        button2.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String b = atxt.getText();
+                double realb = Double.parseDouble(b);
+                String a = btxt.getText();
+                double reala = Double.parseDouble(a);
+                Calculator calc = new Calculator();
+                double answer = calc.divide(realb, reala);
+                String finalanswer = Double.toString(answer);
+                JOptionPane.showMessageDialog(CalculatorGUI.this, finalanswer, "",  JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+            
+        });
         
         add(mainPanel);
-        pack();//автоматически устанавливает размер окна
+        pack();//Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІ Г°Г Г§Г¬ГҐГ° Г®ГЄГ­Г 
         setLocationRelativeTo(null);
         setVisible(true);
 
     }
     
+
 }
