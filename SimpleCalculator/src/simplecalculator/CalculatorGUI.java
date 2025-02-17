@@ -3,39 +3,61 @@ package simplecalculator;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-public class CalculatorGUI extends JFrame {
+public class CalculatorGUI extends JFrame{
     
-    public CalculatorGUI(){
-        setSize(600,600);
-        JPanel panel = new JPanel();
-        getContentPane().add(panel);
-        panel.setLayout(new GridLayout(4, 2, 5, 5));
-        JButton button1 = new JButton("��������");
-        JButton button2 = new JButton("���������");
-        panel.add(button1);
-        panel.add(button2);
-        JTextField txt1 = new JTextField(20);
-        JTextField txt2 = new JTextField(20);
-        panel.add(txt1);
-        panel.add(txt2);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+    public  CalculatorGUI() {
+        super("feature-and-abstract");
+        Calculator calc = new Calculator();
         
-        button1.addActionListener(new ActionListener(){
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(5, 2, 5, 5));
+        
+        
+        mainPanel.add(new JLabel("×èñëî 1:"));
+        JTextField atxt = new JTextField(4);
+        mainPanel.add(atxt);
+        mainPanel.add(new JLabel("×èñëî 2:"));
+        JTextField btxt = new JTextField(4);
+        mainPanel.add(btxt);
+
+        //ñóììà
+        JButton buttonSum = new JButton("Ñóììà");
+        mainPanel.add(buttonSum);
+        JButton buttonSub = new JButton("Ðàçíîñòü");
+        mainPanel.add(buttonSub);
+        JButton button1 = new JButton("Óìíîæèòü");
+        JButton button2 = new JButton("Ðàçäåëèòü");
+        mainPanel.add(button1);
+        mainPanel.add(button2);
+        mainPanel.add(new JLabel("Ðåçóëüòàò"));
+        JLabel res = new JLabel("");
+        mainPanel.add(res);
+        buttonSum.addActionListener(e -> {
+            double a = Double.parseDouble(atxt.getText());
+            double b = Double.parseDouble(btxt.getText());
+            double c =  calc.add(a, b);
+            res.setText(Double.toString(c));
+        }); 
+        buttonSub.addActionListener(e -> {
+            double a = Double.parseDouble(atxt.getText());
+            double b = Double.parseDouble(btxt.getText());
+            double c =  calc.subtract(a, b);
+            res.setText(Double.toString(c));
+        });
+              button1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String b = txt1.getText();
+                String b = atxt.getText();
                 double realb = Double.parseDouble(b);
-                String a = txt2.getText();
+                String a = btxt.getText();
                 double reala = Double.parseDouble(a);
                 Calculator calc = new Calculator();
                 double answer = calc.multiply(reala, realb);
@@ -48,9 +70,9 @@ public class CalculatorGUI extends JFrame {
         button2.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String b = txt1.getText();
+                String b = atxt.getText();
                 double realb = Double.parseDouble(b);
-                String a = txt2.getText();
+                String a = btxt.getText();
                 double reala = Double.parseDouble(a);
                 Calculator calc = new Calculator();
                 double answer = calc.divide(realb, reala);
@@ -61,9 +83,12 @@ public class CalculatorGUI extends JFrame {
             
         });
         
-        
+        add(mainPanel);
+        pack();//àâòîìàòè÷åñêè óñòàíàâëèâàåò ðàçìåð îêíà
+        setLocationRelativeTo(null);
+        setVisible(true);
+
     }
     
-    
-    
+
 }
