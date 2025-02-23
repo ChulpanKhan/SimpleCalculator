@@ -1,4 +1,3 @@
-
 package simplecalculator;
 
 import java.awt.FlowLayout;
