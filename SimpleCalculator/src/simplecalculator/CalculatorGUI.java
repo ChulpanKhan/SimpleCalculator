@@ -1,59 +1,93 @@
 package simplecalculator;
 
-
-import simplecalculator.Calculator;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Expert
- */
-public class CalculatorGUI extends JFrame implements ActionListener{
-    JButton btn1;
-    JTextField a;
-    JTextField b;
-    Calculator calc = new Calculator();
-    public CalculatorGUI(){
-        setSize(600, 600);
-        JPanel panel = new JPanel();
-        new FlowLayout(FlowLayout.CENTER, 100,100);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 100,100));
-        getContentPane().add(panel);
-        a = new JTextField(20);
-        b = new JTextField(20);
-        btn1 = new JButton("ÍÀÆÌÈ ×ÒÎÁÛ ÂÎÇÂÅÑÒÈ");
-        btn1.setActionCommand("Go");
-        btn1.addActionListener(this);
-        panel.add(new JLabel("Íàïèøèòå ÷èñëî:"));
-        panel.add(a);
-        panel.add(new JLabel("Íàïèøèòå ñòåïåíü:"));
-        panel.add(b);
+public class CalculatorGUI extends JFrame{
+    
+    public  CalculatorGUI() {
+        super("feature-and-abstract");
+        Calculator calc = new Calculator();
         
-        add(btn1);
-        pack();
-        setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(5, 2, 5, 5));
+        
+        
+        mainPanel.add(new JLabel("Ã—Ã¨Ã±Ã«Ã® 1:"));
+        JTextField atxt = new JTextField(4);
+        mainPanel.add(atxt);
+        mainPanel.add(new JLabel("Ã—Ã¨Ã±Ã«Ã® 2:"));
+        JTextField btxt = new JTextField(4);
+        mainPanel.add(btxt);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        double a1 = Double.parseDouble(a.getText().trim());
-        double b1 = Double.parseDouble(b.getText().trim());
-        double anse = calc.power(a1, b1);
-        String sss = Double.toString(anse);
+        //Ã±Ã³Ã¬Ã¬Ã 
+        JButton buttonSum = new JButton("Ã‘Ã³Ã¬Ã¬Ã ");
+        mainPanel.add(buttonSum);
+        JButton buttonSub = new JButton("ÃÃ Ã§Ã­Ã®Ã±Ã²Ã¼");
+        mainPanel.add(buttonSub);
+        JButton button1 = new JButton("Ã“Ã¬Ã­Ã®Ã¦Ã¨Ã²Ã¼");
+        JButton button2 = new JButton("ÃÃ Ã§Ã¤Ã¥Ã«Ã¨Ã²Ã¼");
+        mainPanel.add(button1);
+        mainPanel.add(button2);
+        mainPanel.add(new JLabel("ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²"));
+        JLabel res = new JLabel("");
+        mainPanel.add(res);
+        buttonSum.addActionListener(e -> {
+            double a = Double.parseDouble(atxt.getText());
+            double b = Double.parseDouble(btxt.getText());
+            double c =  calc.add(a, b);
+            res.setText(Double.toString(c));
+        }); 
+        buttonSub.addActionListener(e -> {
+            double a = Double.parseDouble(atxt.getText());
+            double b = Double.parseDouble(btxt.getText());
+            double c =  calc.subtract(a, b);
+            res.setText(Double.toString(c));
+        });
+              button1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String b = atxt.getText();
+                double realb = Double.parseDouble(b);
+                String a = btxt.getText();
+                double reala = Double.parseDouble(a);
+                Calculator calc = new Calculator();
+                double answer = calc.multiply(reala, realb);
+                String finalanswer = Double.toString(answer);
+                JOptionPane.showMessageDialog(CalculatorGUI.this, finalanswer, "",  JOptionPane.INFORMATION_MESSAGE);
+               
+            }
             
-        JOptionPane.showMessageDialog(this, sss, "Óñïåõ", JOptionPane.INFORMATION_MESSAGE);
-    }
+        });
+        button2.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String b = atxt.getText();
+                double realb = Double.parseDouble(b);
+                String a = btxt.getText();
+                double reala = Double.parseDouble(a);
+                Calculator calc = new Calculator();
+                double answer = calc.divide(realb, reala);
+                String finalanswer = Double.toString(answer);
+                JOptionPane.showMessageDialog(CalculatorGUI.this, finalanswer, "",  JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+            
+        });
         
+        add(mainPanel);
+        pack();//Ã Ã¢Ã²Ã®Ã¬Ã Ã²Ã¨Ã·Ã¥Ã±ÃªÃ¨ Ã³Ã±Ã²Ã Ã­Ã Ã¢Ã«Ã¨Ã¢Ã Ã¥Ã² Ã°Ã Ã§Ã¬Ã¥Ã° Ã®ÃªÃ­Ã 
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+    }
+    
 
 }
